@@ -26,8 +26,8 @@ public class Player extends BaseEntity {
     private String nation ;
     private String birthDate ;
     private String solar ;
-    private String height ;
-    private String weight ;
+    private Integer height ;
+    private Integer weight ;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id", nullable = true, referencedColumnName = "teamId", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
