@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Component
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,4 +23,6 @@ public class StadiumDto {
     private String address;
     private String ddd;
     private String tel;
+    private LocalDateTime regDate;
+    private LocalDateTime modDate;
 }

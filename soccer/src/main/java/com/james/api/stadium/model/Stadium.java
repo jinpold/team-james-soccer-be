@@ -1,4 +1,5 @@
 package com.james.api.stadium.model;
+import com.james.api.common.BaseEntitiy;
 import com.james.api.schedule.model.Schedule;
 import com.james.api.team.model.Team;
 import java.util.List;
@@ -11,7 +12,7 @@ import lombok.*;
 @Getter
 @Entity(name = "stadiums")
 @ToString(exclude = {"id"})
-public class Stadium {
+public class Stadium extends BaseEntitiy {
 
    @Id
    @Column(name = "id", nullable = false)
@@ -25,9 +26,9 @@ public class Stadium {
    private String ddd;
    private String tel;
 
-   @OneToMany(mappedBy = "teamId", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-   private List<Team> teams;
+   @OneToMany(mappedBy = "stadium", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+   private List<Team> team;
 
-   @OneToMany(mappedBy = "stadiumId", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-   private List<Schedule> schedules;
+   @OneToMany(mappedBy = "stadium", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+   private List<Schedule> schedule;
 }

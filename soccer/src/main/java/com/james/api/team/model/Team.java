@@ -1,4 +1,5 @@
 package com.james.api.team.model;
+import com.james.api.common.BaseEntitiy;
 import com.james.api.player.model.Player;
 import com.james.api.stadium.model.Stadium;
 import jakarta.persistence.Column;
@@ -17,6 +18,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity(name = "teams")
@@ -24,7 +26,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class Team {
+public class Team extends BaseEntitiy {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,11 +44,13 @@ public class Team {
     private String fax;
     private String homepage;
     private String owner;
+    private LocalDateTime regDate;
+    private LocalDateTime modDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "stadium_id", nullable = true, referencedColumnName = "stadiumId", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
-    private Stadium stadiumId;
+    private Stadium stadium;
 
-    @OneToMany(mappedBy = "teamId", fetch = FetchType.LAZY)
-    private List<Player> players;
+    @OneToMany(mappedBy = "team", fetch = FetchType.LAZY)
+    private List<Player> player;
 }

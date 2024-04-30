@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.time.LocalDateTime;
+
 @Data
 @Component
 @ToString
@@ -27,4 +29,6 @@ public class TeamDto {
     private String fax;
     private String homepage;
     private String owner;
+    private LocalDateTime regDate;
+    private LocalDateTime modDate;
 }

@@ -1,4 +1,5 @@
 package com.james.api.schedule.model;
+import com.james.api.common.BaseEntitiy;
 import com.james.api.stadium.model.Stadium;
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,7 +10,7 @@ import lombok.*;
 @Builder
 @Getter
 @ToString(exclude = "id")
-public class Schedule {
+public class Schedule extends BaseEntitiy {
 
     @Id
     @Column(name = "id",nullable = false)
@@ -24,5 +25,5 @@ public class Schedule {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "stadium_id", nullable = true, referencedColumnName = "stadiumId", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
-    private Stadium stadiumId;
+    private Stadium stadium;
 }
