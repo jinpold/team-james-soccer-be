@@ -1,5 +1,5 @@
 package com.james.api.team.model;
-import com.james.api.common.BaseEntitiy;
+import com.james.api.common.BaseEntity;
 import com.james.api.player.model.Player;
 import com.james.api.stadium.model.Stadium;
 import jakarta.persistence.Column;
@@ -26,7 +26,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class Team extends BaseEntitiy {
+public class Team extends BaseEntity {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)

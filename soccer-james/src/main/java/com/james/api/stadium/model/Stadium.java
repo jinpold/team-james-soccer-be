@@ -1,5 +1,5 @@
 package com.james.api.stadium.model;
-import com.james.api.common.BaseEntitiy;
+import com.james.api.common.BaseEntity;
 import com.james.api.schedule.model.Schedule;
 import com.james.api.team.model.Team;
 import java.util.List;
@@ -12,7 +12,7 @@ import lombok.*;
 @Getter
 @Entity(name = "stadiums")
 @ToString(exclude = {"id"})
-public class Stadium extends BaseEntitiy {
+public class Stadium extends BaseEntity {
 
    @Id
    @Column(name = "id", nullable = false)

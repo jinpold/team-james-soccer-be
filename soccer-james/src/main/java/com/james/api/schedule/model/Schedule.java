@@ -1,5 +1,5 @@
 package com.james.api.schedule.model;
-import com.james.api.common.BaseEntitiy;
+import com.james.api.common.BaseEntity;
 import com.james.api.stadium.model.Stadium;
 import jakarta.persistence.*;
 import lombok.*;
@@ -10,7 +10,7 @@ import lombok.*;
 @Builder
 @Getter
 @ToString(exclude = "id")
-public class Schedule extends BaseEntitiy {
+public class Schedule extends BaseEntity {
 
     @Id
     @Column(name = "id",nullable = false)

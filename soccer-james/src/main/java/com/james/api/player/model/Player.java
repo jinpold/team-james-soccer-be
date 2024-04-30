@@ -1,4 +1,5 @@
 package com.james.api.player.model;
+import com.james.api.common.BaseEntity;
 import com.james.api.team.model.Team;
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,7 +10,7 @@ import lombok.*;
 @Builder
 @Getter
 @ToString(exclude = "id")
-public class Player {
+public class Player extends BaseEntity {
     @Id
     @Column(name ="id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
