@@ -14,15 +14,15 @@ import java.util.Optional;
 @Slf4j
 public class ScheduleServiceImpl implements ScheduleService{
 
-    private final ScheduleRepository repository;
-
-    @Override
-    public List<ScheduleDto> getInfoInScheduleByDate(String date) {
-        return repository.getInfoInScheduleByDate(date);
-    }
-
-    @Override
-    public List<ScheduleDto> getInfoInScheduleByScoreGap(String score) {
-        return repository.getInfoInScheduleByScoreGap(score);
-    }
+//    private final ScheduleRepository repository;
+//
+//    @Override
+//    public List<ScheduleDto> getInfoInScheduleByDate(String date) {
+//        return repository.getInfoInScheduleByDate(date);
+//    }
+//
+//    @Override
+//    public List<ScheduleDto> getInfoInScheduleByScoreGap(String score) {
+//        return repository.getInfoInScheduleByScoreGap(score);
+//    }
 }
