@@ -26,7 +26,7 @@ public class Stadium extends BaseEntity {
    private String ddd;
    private String tel;
 
-   @OneToMany(mappedBy = "stadium", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+   @OneToMany(mappedBy = "stadium", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
    private List<Team> team;
 
    @OneToMany(mappedBy = "stadium", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)

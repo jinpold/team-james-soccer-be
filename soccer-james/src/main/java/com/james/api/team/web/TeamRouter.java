@@ -13,17 +13,16 @@ public class TeamRouter {
 
     private final TeamRepository repository;
 
-//    public List<Map<String, Object>> execute(String type) {
-//
-//        return switch (type){
-//            case "1"-> repository.getAllByTeamName();
-//            case "2"-> repository.getPlayerOrderBy();
-//            case "3"-> repository.getPlayerByTeamId();
-//            case "4" -> repository.getTeamByNoPosition();
-//            case "5" -> repository.getTeamByDate();
-//            case "6" -> repository.getTeamByHeight();
-//            default -> null;
-//        };
-//    }
-}
+    public List<Map<String, Object>> execute(String q) {
 
+        return switch (q){
+            case "1"-> repository.getAllByTeamName();
+            case "12"-> repository.getPlayerByTeamId();
+            case "13"-> repository.getTeamByNoPosition();
+            case "14" -> repository.getTeamByDate();
+            case "19" -> repository.getTeamByAvgHeight();
+            case "21" -> repository.getTeamByHeight();
+            default -> null;
+        };
+    }
+}

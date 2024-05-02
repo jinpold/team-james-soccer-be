@@ -27,12 +27,20 @@ public class PlayerController {
     public ResponseEntity <List<Map<String, Object>>> searchPlayer(
         @RequestParam(value="q", required = true) String q,
         @RequestParam(value = "position", required = false) String position,
+        @RequestParam(value = "regionName", required = false) String regionName,
+        @RequestParam(value = "teamId1", required = false) String teamId1,
+        @RequestParam(value = "teamId2", required = false) String teamId2,
+        @RequestParam(value = "height1", required = false) String height1,
+        @RequestParam(value = "height2", required = false) String height2,
         @RequestParam(value = "playerName", required = false) String playerName,
-        @RequestParam(value = "teamId", required = false) String teamId)
+        @RequestParam(value = "teamName1", required = false) String teamName1,
+        @RequestParam(value = "teamName2", required = false) String teamName2,
+        @RequestParam(value = "limit", required = false) Integer limit)
 
     {
         log.info("Controller searchPlayer q is {}", q);
-        List<Map<String, Object>> object = playerRouter.execute(q);
+        List<Map<String, Object>> object = playerRouter.execute
+                (q,position, teamId1, teamId2, regionName, height1, height2,playerName,teamName1, teamName2, limit);
 
         return ResponseEntity.ok(object);
     }

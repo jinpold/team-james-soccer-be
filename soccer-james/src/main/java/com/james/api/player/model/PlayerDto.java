@@ -16,7 +16,7 @@ public class PlayerDto {
     private Long id;
     private String playerId;
     private String name;
-//    private String teamId;
+    private String teamId;
     private String playerName;
     private String ePlayerName;
     private String nickname;

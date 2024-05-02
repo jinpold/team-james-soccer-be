@@ -9,10 +9,10 @@ import lombok.RequiredArgsConstructor;
 @PersistenceContext // 전역  -> scope가 꼬이지 않게  전역에서 주입해주는게 베스트
 public class PlayerDAOImpl implements PlayerDAO { // 서비스임플 느낌 -> 구현체 -오버라이딩으로 기능 구현
 
-    @PersistenceContext // 필드 주입 (가능 / 삭제에정)
+    //@PersistenceContext // 필드 주입 (가능 / 삭제에정)
     private final EntityManager entityManager; // 스프링에서 불러옴.
     @Override
-    @PersistenceContext // 로컬 주입 (가능 / 삭제에정)
+    //@PersistenceContext // 로컬 주입 (가능 / 삭제에정)
     public Player p(Player player, Long id) {
         return entityManager.find(Player.class, 1L);
     }
@@ -32,5 +32,3 @@ public class PlayerDAOImpl implements PlayerDAO { // 서비스임플 느낌 -> �
         entityManager.persist(player);
     }
 }
-
-// 3가지  현주씨한테 다시 설명 한번 듣기
