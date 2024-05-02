@@ -9,25 +9,36 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class TeamServiceImpl implements TeamService {
-    private final TeamRepository repository;
 
-    @Override
-    public List<?> getTeamsOrderByTeamName() {
-        return null;
-    }
+//    private final TeamRepository repository;
 
-    @Override
-    public List<?> getTeamsByteamName() {
-        return null;
-    }
-
-    @Override
-    public List<?> getNotSelectedPostion() {
-        return null;
-    }
-
-    @Override
-    public List<?> getHeightAvgByTeam() {
-        return null;
-    }
+//    @Override
+//    public List<?> getAllByTeamName() {
+//        return null;
+//    }
+//
+//    @Override
+//    public List<?> getPlayerOrderBy() {
+//        return null;
+//    }
+//
+//    @Override
+//    public List<?> getPlayerByTeamId() {
+//        return null;
+//    }
+//
+//    @Override
+//    public List<?> getTeamByNoPosition() {
+//        return null;
+//    }
+//
+//    @Override
+//    public List<?> getTeamByDate() {
+//        return null;
+//    }
+//
+//    @Override
+//    public List<?> getTeamByHeight() {
+//        return null;
+//    }
 }

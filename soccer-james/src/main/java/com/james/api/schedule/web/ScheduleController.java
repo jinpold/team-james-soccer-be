@@ -1,4 +1,4 @@
-package com.james.api.schedule;
+package com.james.api.schedule.web;
 import com.james.api.schedule.model.ScheduleDto;
 import com.james.api.schedule.service.ScheduleServiceImpl;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

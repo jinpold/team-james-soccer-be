@@ -1,6 +1,7 @@
 package com.james.api.player.repository;
 import com.james.api.player.model.Player;
-import org.springframework.data.domain.Pageable;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -8,15 +9,15 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public interface PlayerJpqlRepository extends JpaRepository<Player , Long>  {
+public interface PlayerJpqlRepository extends JpaRepository<Player , Long> {
+
 
     //2번
     @Query("SELECT DISTINCT new map(p.position AS POSITION) FROM players p")
     List<Map<String, Object>> getDistinctByPosition();
 
-
     //3번
-    @Query("SELECT DISTINCT new map (IFNULL(NULLIF(p.position, ''), '신입') AS 포지션) FROM players p ")
+    @Query("SELECT DISTINCT new map (IFNULL(NULLIF(p.position, ''), '신입') AS POSITION) FROM players p ")
     List<Map<String, Object>> getDistinctByPositionNotNull();
 
     //4번
@@ -53,7 +54,7 @@ public interface PlayerJpqlRepository extends JpaRepository<Player , Long>  {
     List<Map<String , Object>> getOnByPositionAndHeightAndTeamId();
 
     //8번
-    @Query("SELECT new map (p.team.teamId as 플레이어팀ID , t.teamId as team팀 , t.regionName AS 연고지, p.position AS POSITION) FROM players p JOIN teams t on t.teamId = p.teamId.teamId\n" +
+    @Query("SELECT new map (p.team.teamId as 플레이어팀ID , t.teamId as team팀 , t.regionName AS 연고지, p.position AS POSITION) FROM players p JOIN teams t on t.teamId = p.team.teamId\n" +
             "                          where p.position = 'GK' AND t.regionName = '수원'")
     List<Map<String ,Object>> getOnByPositionAndTeamId7();
 
@@ -100,16 +101,5 @@ public interface PlayerJpqlRepository extends JpaRepository<Player , Long>  {
             "ORDER BY p.height\n" )
     List<Map<String , Object>> getOnByPositionAndTeamId21();
 
-     // 22번
-//    @Query("SELECT new Map (p) FROM players p "
-//            + "JOIN (SELECT p2.team, ROUND(AVG(p2.height),2) AS avg "
-//            + "      FROM players p2 "
-//            + "      WHERE p2.height IS NOT NULL "
-//            + "      GROUP BY p2.team) t_avg "
-//            + "ON p.team = t_avg.id "
-//            + "WHERE p.height IS NOT NULL "
-//            + "AND p.height < t_avg.avg "
-//            + "ORDER BY p.height DESC")
-//    List<Player> getPlayersTeamAverage();
 
 }

@@ -1,13 +1,5 @@
 package com.james.api.player.service;
-
-import com.james.api.player.model.Player;
-import com.james.api.player.model.PlayerDto;
-import com.james.api.schedule.model.ScheduleDto;
-import org.springframework.data.jpa.repository.Query;
-
-import java.awt.print.Pageable;
 import java.util.List;
-import java.util.Map;
 
 public interface PlayerService {
 
@@ -37,6 +29,6 @@ public interface PlayerService {
 
     List<?> getOnByPositionAndTeamId21();
 
-//    List<?> getPlayersTeamAverage();
+
 
 }

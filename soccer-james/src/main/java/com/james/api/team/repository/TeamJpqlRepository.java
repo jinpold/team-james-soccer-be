@@ -1,43 +1,37 @@
 package com.james.api.team.repository;
-import java.util.List;
-import java.util.Map;
+import com.james.api.team.model.Team;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import com.james.api.team.model.Team;
+import java.util.List;
+import java.util.Map;
 
 public interface TeamJpqlRepository extends JpaRepository<Team, Long> {
-    String dto = " new map(" +
-            "t.id AS id, t.teamId AS teamId, t.regionName AS regionName, t.teamName AS teamName, " +
-            "t.eTeamName AS eTeamName, t.origYyyy AS origYyyy, t.zipCode1 AS zipCode1, t.zipCode2 AS zipCode2, " +
-            "t.address AS address, t.ddd AS ddd, t.tel AS tel, t.fax AS fax, t.homepage AS homepage, " +
-            "t.owner AS owner, t.stadiumId.stadiumId as stadiumId) from team t ";
 
+    //1
+    @Query("SELECT new map(t as team) FROM teams t ORDER BY t.teamId")
+    List<Map<String, Object>> getAllByTeamName();
 
-    @Query(value = "SELECT " + dto + "ORDER BY t.teamName ASC")
-    List<Map<String, Object>> getTeamsOrderByTeamName();
+    // 10
+    @Query("SELECT new map(t as team) FROM teams t JOIN players p ON t.teamId = p.team WHERE t.teamId IN('K02', 'K10') AND p.position = 'GK' ORDER BY t.teamId, p.playerName")
+    List<Map<String, Object>> getPlayerOrderBy();
 
+    // 12
 
-    @Query(value =
-            "SELECT new map(t.teamName AS teamName, p.playerName AS playerName)" +
-                    "FROM teams t JOIN players p ON t.teamId = p.team.teamId " +
-                    "WHERE p.position = \'\'" +
-                    "ORDER BY t.teamName, p.playerName")
-    List<Map<String, Object>> getNotSelectedPostion();
+    @Query("SELECT new map(t.teamName AS teamName, p.playerName AS playerName) FROM teams t JOIN players p ON t.teamId = p.team.teamId WHERE p.position = \'\' ORDER BY t.teamName, p.playerName")
+    List<Map<String, Object>> getPlayerByTeamId();
 
-    @Query(value =
-            "SELECT new map(" +
-                    "p.id AS id, p.playerId AS playerId, p.name AS name, p.team.teamId AS teamId, p.playerName AS playerName, " +
-                    "p.ePlayerName AS ePlayerName, p.nickname AS nickname, p.joinYyyy AS joinYyyy, p.position AS position, " +
-                    "p.backNo AS backNo, p.nation AS nation, p.birthDate AS birthDate, p.solar AS solar, p.height AS height, p.weight AS weight) FROM teams t " +
-                    "JOIN players p ON t.teamId = p.team.teamId " +
-                    "WHERE p.height != \'\' " +
-                    "ORDER BY p.height, p.playerName")
-    List<Map<String, Object>> getTeamsByteamName();
+    // 13
 
-    @Query(value =
-            "SELECT new map(t.teamId AS 팀ID, t.teamName AS 팀명, ROUND(AVG(CAST(p.height AS double)), 2) AS 평균) FROM teams t " +
-                    "JOIN players p ON t.teamId = p.team.teamId " +
-                    "GROUP BY t.teamId, t.teamName")
-    List<Map<String, Object>> getHeightAvgByTeam();
+    @Query("SELECT new map(t.teamId , p.playerName) FROM teams t JOIN players p ON t.teamId = p.team WHERE p.position = '' ORDER BY t.teamId, p.playerName")
+    List<Map<String, Object>> getTeamByNoPosition();
 
+    // 14
+
+    @Query("SELECT new map(t.teamId as HOME_TEAM, s.stadiumName, (SELECT t.teamId FROM teams t WHERE sc.awayteamId = t.teamId) as AWAY_TEAM) FROM stadiums s JOIN schedules sc ON s.stadiumId = sc.stadium  JOIN teams t ON s.stadiumId = t.stadium WHERE sc.scheDate = '20120317'")
+    List<Map<String, Object>> getTeamByDate();
+
+    // 22
+
+    @Query("SELECT new map(t as team) FROM teams t ORDER BY t.teamId")
+    List<Map<String, Object>> getTeamByHeight();
 }

@@ -6,25 +6,24 @@ import org.springframework.stereotype.Component;
 import com.james.api.team.repository.TeamRepository;
 import lombok.RequiredArgsConstructor;
 
-@Slf4j
 @RequiredArgsConstructor
+@Slf4j
 @Component
 public class TeamRouter {
 
-    private final TeamRepository teamRepository;
+    private final TeamRepository repository;
 
-    @SuppressWarnings("unchecked")
-    public List<Map<String, Object>> execute(String q){
-        return switch (q) {
-            case "1" -> teamRepository.getTeamsOrderByTeamName();
-            case "12" -> teamRepository.getTeamsByteamName();
-            case "13" -> teamRepository.getNotSelectedPostion();
-            case "19" -> teamRepository.getHeightAvgByTeam();
-            default -> throw new IllegalStateException("Unexpected value: " + q);
-        };
-    }
+//    public List<Map<String, Object>> execute(String type) {
+//
+//        return switch (type){
+//            case "1"-> repository.getAllByTeamName();
+//            case "2"-> repository.getPlayerOrderBy();
+//            case "3"-> repository.getPlayerByTeamId();
+//            case "4" -> repository.getTeamByNoPosition();
+//            case "5" -> repository.getTeamByDate();
+//            case "6" -> repository.getTeamByHeight();
+//            default -> null;
+//        };
+//    }
 }
-
-
-
 
