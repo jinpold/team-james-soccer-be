@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @PersistenceContext // 전역  -> scope가 꼬이지 않게  전역에서 주입해주는게 베스트
-public class PlayerDAOImpl implements PlayerDAO { // 서비스임플 느낌 -> 구현체 -오버라이딩으로 기능 구현
+public class PlayerDaoImpl implements PlayerDao { // 서비스임플 느낌 -> 구현체 -오버라이딩으로 기능 구현
 
     //@PersistenceContext // 필드 주입 (가능 / 삭제에정)
     private final EntityManager entityManager; // 스프링에서 불러옴.

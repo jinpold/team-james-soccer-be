@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 
 @SuppressWarnings("rawtypes")
 @Repository
-public interface PlayerRepository extends JpaRepository<Player, Long>, PlayerJpqlRepository, PlayerDAO {
+public interface PlayerRepository extends JpaRepository<Player, Long>, PlayerJpqlRepository, PlayerDao {
 
 }
