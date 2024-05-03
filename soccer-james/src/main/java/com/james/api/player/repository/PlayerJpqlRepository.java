@@ -1,7 +1,5 @@
 package com.james.api.player.repository;
 import com.james.api.player.model.Player;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
