@@ -1,8 +1,8 @@
 package com.james.api.schedule.repository;
-import com.james.api.schedule.model.Schedule;
-
+import com.james.api.schedule.model.ScheduleDto;
+import java.util.List;
 public interface ScheduleDao {
-    Schedule findById(Long id);
-    void insert(Schedule schedule);
-    void update(Schedule schedule);
+
+    List<ScheduleDto> getAllSchedules();
+
 }

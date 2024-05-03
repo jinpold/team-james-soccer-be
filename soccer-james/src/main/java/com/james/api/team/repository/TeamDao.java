@@ -1,11 +1,10 @@
 package com.james.api.team.repository;
+import com.james.api.team.model.TeamDto;
 
-import com.james.api.stadium.model.Stadium;
-import com.james.api.team.model.Team;
+import java.util.List;
 
 public interface TeamDao {
-    Team findById(Long id);
 
-    void insert(Team team);
-    void update(Team team);
+    List<TeamDto> getAllTeams();
+
 }
