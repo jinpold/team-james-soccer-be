@@ -9,5 +9,5 @@ import java.util.Map;
 
 @SuppressWarnings("rawtypes")
 @Repository
-public interface TeamRepository extends JpaRepository<Team, Long>, TeamJpqlRepository {
+public interface TeamRepository extends JpaRepository<Team, Long>, TeamDao {
 }
