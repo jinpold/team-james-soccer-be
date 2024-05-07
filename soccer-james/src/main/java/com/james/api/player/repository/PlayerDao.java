@@ -1,21 +1,64 @@
 package com.james.api.player.repository;
-import com.james.api.player.model.Player;
+
 import com.james.api.player.model.PlayerDto;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Repository  //DAO는 스프링 레파지토리 Name
 public interface PlayerDao { // 인터페이스  서비스
 
-    List<PlayerDto> getAllPlayers();
+    List<PlayerDto> getAllPlayersDSL();
+
+    //2번  O 파라미터 X
+
+    List<PlayerDto> getDistinctByPositionDSL();
+
+    //3번  O 파라미터 X
+    List<?> getDistinctByPositionNotNullDSL();
+
+    //4번  X - 확장성을 위해 teamName으로 바꿔 줄 필요성이 있음.
+    List<?> getOnByPositionAndTeamIdDSL(String position, String teamName1);
+
+    //4-1번 O
+
+    List<?> getOnByPositionAndTeamId2DSL(String regionName);
+
+    //5번 O
+    List<?> getOnByPositionAndTeamIdAndHeightDSL(String regionName1);
+
+    // 5-1번 X
+    List<?> getOnByPositionAndTeamIdAndHeight2DSL(String playerName, String regionName, String height);
+
+    // 6번 X
+    List<?> getOnByPositionAndHeightAndTeamIdDSL(String position, String height1, String height2, String teamName1, String teamName2);
 
 
-//    Player p (Player player, Long id);
-//    Player p2(Player player, Long id);
-//
-//    void insert(Player player);
-//    void update(Player player);
+    //7번 O
+    List<Map<String, Object>> getPositionAndRegionDSL();
 
+    //8번  수정 필요
+    List<?> getOnByHeightAndWeightDSL(String regionName);
+
+    //9번
+    List<?> getPlayerInfoByRegionDSL();
+
+    //10번 수정필요
+    List<?> getOnByPositionAndTeamId10DSL();
+
+
+    //18번  - Limit 추가 필요
+    List<?> getOnCountAllDSL();
+
+
+    //20번
+    List<?> getByOnPositionAndTeamId20DSL();
+
+    // 21번
+    List<?> getOnByPositionAndTeamId21DSL();
+
+    // 22번
+    List<?> getHeightAndTeamIdDSL();
 }
