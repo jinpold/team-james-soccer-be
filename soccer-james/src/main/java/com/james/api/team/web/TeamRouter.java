@@ -1,7 +1,9 @@
 package com.james.api.team.web;
 import java.util.List;
-import java.util.Map;
+
+import com.james.api.team.repository.TeamDao;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import com.james.api.team.repository.TeamRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +15,7 @@ public class TeamRouter {
 
     private final TeamRepository repository;
 
-    public List<Map<String, Object>> execute(String q) {
+    public List<?> execute(String q) {
 
         return switch (q){
             case "1"-> repository.getAllByTeamName();

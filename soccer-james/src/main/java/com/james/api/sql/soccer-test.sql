@@ -241,6 +241,7 @@ JOIN player p USING (team_id)
 WHERE t.region_name = '인천')
 ORDER BY 3 ASC;
 
+
 -- 문제 20
 -- 포지션이 MF 인 선수들의 소속팀명 및  선수명, 백넘버 출력
 

@@ -29,17 +29,14 @@ public interface TeamJpqlRepository extends JpaRepository<Team, Long> {
             "WHERE sc.scheDate = '20120317'")
     List<Map<String, Object>> getTeamByDate();
 
-//    //19
-//    @Query("select new map(t.teamId as teamId, t.teamName as teamName, round (avg(p.height),2) as avgHeight) "
-//            +"from teams t join players p on t.teamId=p.team.teamId where nullif(p.height,'0') and nullif(p.weight,'0') and p.height!='0'"
-//            +"group by p.team.teamId having round (avg(p.height),2) < (select round(avg(p.height),2) from teams t join players p where t.regionName='인천')"
-//    +"order by 3 asc ")
-//    List<Map<String,Object>> getTeamByAvgHeight();
-
-    //19 -> 수정 필요
-    @Query("select new map(t.teamId as teamId, t.teamName as teamName, round (avg(cast(p.height as double)),2) as avgHeight) "
-            +"from teams t join players p on t.teamId=p.team.teamId where (case when p.height='' then '0' else p.height end ='0') and (case when p.weight='' then '0' else p.weight end ='0') order by 3 asc ")
+    // 19 -> 각 팀의 평균키만 출력됨
+    // 인천 유나이티스 팀 평균키 176.59 보다 낮은 팀ID, 팀명, 평균키만 추출
+    @Query("SELECT new map(t.teamId AS 팀ID, t.teamName AS 팀명, ROUND(AVG(CAST(p.height AS double)), 2) AS 평균) FROM teams t " +
+            "JOIN players p ON t.teamId = p.team.teamId " +
+            "WHERE p.height != '' " +
+            "GROUP BY t.teamId, t.teamName")
     List<Map<String,Object>> getTeamByAvgHeight();
+
 
     // 21 -> 정답
     @Query("SELECT new map((select t.teamName FROM teams t where t.teamId=p.team.teamId) as teamName,p.playerName as playerName, p.backNo as backNo) from players p join p.team t order by p.height desc limit 5")
