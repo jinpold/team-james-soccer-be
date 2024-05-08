@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 
-@Repository  //DAO는 스프링 레파지토리 Name
 public interface PlayerDao { // 인터페이스  서비스
 
     List<PlayerDto> getAllPlayersDSL();

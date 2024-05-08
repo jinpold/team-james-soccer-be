@@ -1,4 +1,5 @@
 package com.james.api.schedule.model;
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,11 +10,9 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 
 @Component
-@AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Log4j2
-@Builder
 public class ScheduleDto {
     private Long id;
     private String scheDate;
@@ -24,4 +23,12 @@ public class ScheduleDto {
     private Integer awayScore;
     private LocalDateTime regDate;
     private LocalDateTime modDate;
+
+    private String stadiumName;
+
+    @QueryProjection
+    public ScheduleDto(String stadiumName,String scheDate) {
+        this.stadiumName = stadiumName;
+        this.scheDate=scheDate;
+    }
 }

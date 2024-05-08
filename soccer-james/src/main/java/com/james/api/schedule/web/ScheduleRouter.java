@@ -1,5 +1,7 @@
 package com.james.api.schedule.web;
 
+import com.james.api.schedule.model.ScheduleDto;
+import com.james.api.schedule.repository.ScheduleDaoImpl;
 import com.james.api.schedule.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -15,12 +17,12 @@ import java.util.Map;
 public class ScheduleRouter {
 
     private final ScheduleRepository repository;
-
+    private final ScheduleDaoImpl scheduleDao;
     @SuppressWarnings("unchecked")
-    public List<Map<String,Object>> execute(String q, String startDate, String endDate) {
+    public List<ScheduleDto> execute(String q, String startDate, String endDate) {
         log.info("Controller Search Schedule {}, {}, {}",q,startDate,endDate);
         return switch (q){
-            case "23"->repository.getInfoInScheduleByDate(startDate,endDate);
+            case "23"->scheduleDao.getInfoInScheduleByDate(startDate,endDate);
             default -> null;
         };
 

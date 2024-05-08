@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Map;
 
-@SuppressWarnings("hiding")
 @Repository
 public interface StadiumJpqlRepository extends JpaRepository<Stadium,Long> {
     //problem 11

@@ -27,6 +27,7 @@ public class StadiumDto {
     private LocalDateTime modDate;
 
     private String teamName;
+    private String hometeamName;
     private String awayteamName;
     private String playerName;
     private String position;
@@ -66,5 +67,12 @@ public class StadiumDto {
         this.teamName=teamName;
         this.stadiumName=stadiumName;
         this.scheDate=scheDate;
+    }
+    @QueryProjection
+    public StadiumDto(String stadiumName,String scheDate,String hometeamName,String awayteamName){
+        this.stadiumName=stadiumName;
+        this.scheDate=scheDate;
+        this.hometeamName=hometeamName;
+        this.awayteamName=awayteamName;
     }
 }

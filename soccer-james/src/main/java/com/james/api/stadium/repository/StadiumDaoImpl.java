@@ -5,6 +5,7 @@ import com.james.api.stadium.model.QStadium;
 import com.james.api.stadium.model.QStadiumDto;
 import com.james.api.stadium.model.StadiumDto;
 import com.james.api.team.model.QTeam;
+import com.querydsl.core.types.Expression;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +20,8 @@ import java.util.Map;
 
 import static com.james.api.team.model.QTeam.team;
 
-@RequiredArgsConstructor
 @Repository
+@RequiredArgsConstructor
 @Slf4j
 public class StadiumDaoImpl implements StadiumDao{
 
@@ -50,7 +51,6 @@ public class StadiumDaoImpl implements StadiumDao{
 
     @Override
     public List<StadiumDto> getStadiumAndTeamAndSchedule(@Param("date") String date) {
-        //return null;
         return jpaQueryFactory.select(new QStadiumDto(
                 team.teamName.as("teamName"),stadium.stadiumName.as("stadiumName"),
                         JPAExpressions.select(team.teamName.as("awayteamName"))
@@ -67,7 +67,6 @@ public class StadiumDaoImpl implements StadiumDao{
 
     @Override
     public List<StadiumDto> getPohangSteelersGk(@Param("date") String date, @Param("teamName") String teamName, @Param("position") String position) {
-   // return null;
                 return jpaQueryFactory.select(new QStadiumDto(
                         player.playerName.as("playerName"),player.position.as("position"),
                         team.teamName.concat(" ").concat(team.regionName).as("teamName"),
@@ -81,6 +80,35 @@ public class StadiumDaoImpl implements StadiumDao{
                 .where(team.teamName.eq(teamName))
                 .where(schedule.scheDate.eq(date))
                 .fetch();
+    }
+
+    @Override
+    public List<StadiumDto> getHomeTeamWin(@Param("score") String score) {
+
+        return jpaQueryFactory.select(new QStadiumDto(
+                stadium.stadiumName.as("stadiumName"),schedule.scheDate.as("scheDate"),
+                        JPAExpressions.select(team.teamId.as("hometeamName")).from(team).where(team.teamId.eq(schedule.hometeamId)),
+                        JPAExpressions.select(team.teamId.as("awayteamName")).from(team).where(team.teamId.eq(schedule.awayteamId))
+         )).from(stadium)
+                .join(stadium.schedule,schedule)
+                .join(stadium.team,team)
+                .where(schedule.homeScore.subtract(schedule.awayScore).goe(Integer.parseInt(score)))
+                .fetch();
+    }
+
+    @Override
+    public List<StadiumDto> getNoHomeTeam() {
+                return jpaQueryFactory.select(new QStadiumDto(
+                stadium.stadiumName.as("stadiumName"),
+                team.teamName.as("teamName")
+                )).from(stadium)
+                .leftJoin(stadium.team,team)
+                .fetch();
+    }
+
+    @Override
+    public Long countAll() {
+        return Long.parseLong(String.valueOf(jpaQueryFactory.select(stadium.count())));
     }
 
 
