@@ -10,12 +10,13 @@ import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-
+@Repository
 @RequiredArgsConstructor
 public class TeamDaoImpl implements TeamDao {
 
@@ -24,6 +25,13 @@ public class TeamDaoImpl implements TeamDao {
     private final QPlayer player = QPlayer.player;
     private final QStadium stadium = QStadium.stadium;
     private final QSchedule schedule = QSchedule.schedule;
+
+    @Override
+    public Long countAllTeams() {
+        return jpaQueryFactory.select(team.count())
+                .from(team)
+                .fetchFirst();
+    }
 
     @Override
     public List<TeamDto> getAllTeams() {
@@ -83,20 +91,20 @@ public class TeamDaoImpl implements TeamDao {
     @Override
     public List<Tuple> getTeamByDate() {
 
-            return jpaQueryFactory
-                    .select(
-                            team.teamName.as("hometeamName"),
-                            stadium.stadiumName.as("stadiumName"),
-                            jpaQueryFactory
-                                    .select(team.teamName)
-                                    .from(team)
-                                    .where(team.teamId.eq(schedule.awayteamId))
-                    )
-                    .from(schedule)
-                    .join(schedule.stadium, stadium)
-                    .where(schedule.scheDate.eq("20120317"))
-                    .fetch();
-        }
+        return jpaQueryFactory
+                .select(
+                        team.teamName.as("hometeamName"),
+                        stadium.stadiumName.as("stadiumName"),
+                        jpaQueryFactory
+                                .select(team.teamName)
+                                .from(team)
+                                .where(team.teamId.eq(schedule.awayteamId))
+                )
+                .from(schedule)
+                .join(schedule.stadium, stadium)
+                .where(schedule.scheDate.eq("20120317"))
+                .fetch();
+    }
 
     @Override
     public List<Map<?, ?>> getTeamByAvgHeight() {
@@ -114,10 +122,10 @@ public class TeamDaoImpl implements TeamDao {
 
         return ls.stream().map(tuple -> {
             return Map.of(
-                   "팀ID", tuple.get(team.teamId.as("팀ID")),
-                   "팀명", tuple.get(team.teamName.as("팀명")),
-                   "평균", tuple.get(player.height.castToNum(Double.class).avg().round().as("평균"))
-           );
+                    "팀ID", tuple.get(team.teamId.as("팀ID")),
+                    "팀명", tuple.get(team.teamName.as("팀명")),
+                    "평균", tuple.get(player.height.castToNum(Double.class).avg().round().as("평균"))
+            );
         }).collect(Collectors.toList());
     }
 

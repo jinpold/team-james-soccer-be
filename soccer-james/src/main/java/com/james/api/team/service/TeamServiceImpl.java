@@ -7,4 +7,9 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class TeamServiceImpl implements TeamService{
+    private final TeamRepository repository;
+    @Override
+    public Long countAllTeams() {
+        return repository.countAllTeams();
+    }
 }
