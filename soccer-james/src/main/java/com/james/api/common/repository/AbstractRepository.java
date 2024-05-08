@@ -1,4 +1,4 @@
-package com.james.api.common;
+package com.james.api.common.repository;
 
 import java.io.IOException;
 import java.util.Map;

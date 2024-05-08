@@ -1,10 +1,19 @@
-package com.james.api.common;
+package com.james.api.common.model;
+
+import lombok.Data;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+@Component
+@Data
 public class Box<T>{
+
+    private PageDto pageDto;
+    private List<?> list;
     private Map<String, T> box;
 
     public Box() {

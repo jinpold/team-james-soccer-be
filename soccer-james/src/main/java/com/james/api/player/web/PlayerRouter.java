@@ -57,6 +57,10 @@ public class PlayerRouter {
             default -> throw new IllegalStateException("Unexpected value: " + q);
         };
     }
+
+    public Long countAllplayers() {
+        return playerRepository.countAllPlayers();
+    }
 }
 //.stream().filter(i->Integer.parseInt((String)i.get("height")) >=170).toList();
 

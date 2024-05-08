@@ -10,12 +10,13 @@ import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import java.util.HashMap;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
+@Repository
 public class PlayerDaoImpl implements PlayerDao {
 
     private final JPAQueryFactory jpaQueryFactory;
@@ -23,6 +24,13 @@ public class PlayerDaoImpl implements PlayerDao {
     private final QTeam team = QTeam.team;
     private final QStadium stadium = QStadium.stadium;
     private final QSchedule schedule = QSchedule.schedule;
+
+    @Override
+    public Long countAllPlayers() {
+       return jpaQueryFactory.select(player.count())
+                .from(player)
+                .fetchFirst();
+    }
 
     // 0
     @Override
@@ -100,38 +108,23 @@ public class PlayerDaoImpl implements PlayerDao {
     @Override
     public List<PlayerDto> getOnByPositionAndTeamIdAndHeightDSL(String regionName1) {
 
-        return jpaQueryFactory
-                .select(Projections.constructor(PlayerDto.class,
-                        player.team.teamId,
-                        player.height,
-                        player.playerName))
+        return jpaQueryFactory.select(new QPlayerDto(player.playerName))
                 .from(player)
-                .where(player.height.isNotNull(),
-                        player.playerName.startsWith("고"),
-                        player.team.teamId.eq(
-                                jpaQueryFactory.select(team.teamId)
-                                        .from(team)
-                                        .where(team.regionName.eq(regionName1))
-                                        .fetchOne()
-                        ))
+                .where(player.playerName.like("고%"),
+                        player.height.goe("170"),
+                        player.team.teamId.eq("K02"))
                 .fetch();
     }
-
     // 5-1
 
     @Override
     public List<PlayerDto> getOnByPositionAndTeamIdAndHeight2DSL(String playerName, String regionName, String height) {
 
-        return jpaQueryFactory
-                .select(Projections.constructor(PlayerDto.class,
-                        player.team.teamId,
-                        player.height,
-                        player.playerName))
+        return jpaQueryFactory.select(new QPlayerDto(player.playerName))
                 .from(player)
-                .join(player.team, team)
-                .where(player.height.eq(String.valueOf(height)),
-                        player.playerName.like(playerName.concat("%")),
-                        team.regionName.eq(regionName))
+                .where(player.playerName.like("고%"),
+                        player.height.goe("170"),
+                        player.team.regionName.eq("수원"))
                 .fetch();
     }
 
@@ -156,21 +149,27 @@ public class PlayerDaoImpl implements PlayerDao {
     // 7 O
 
     @Override
-    public List<Map<String, Object>> getPositionAndRegionDSL() {
-        List<Tuple> ls = jpaQueryFactory
-                .select(player.position, player.team.teamId)
+    public List<PlayerDto> getPositionAndRegionDSL() {
+        return jpaQueryFactory.select(new QPlayerDto(player.playerName))
                 .from(player)
-                .leftJoin(player.team, team)
-                .where(player.position.eq("GK"), player.team.regionName.eq(team.regionName))
+                .where(player.position.eq("GK")
+                        .and(player.team.regionName.eq("수원")))
                 .fetch();
-
-        return ls.stream().map(tuple -> {
-            Map<String, Object> map = new HashMap<>();
-            map.put("position", tuple.get(player.position));
-            map.put("teamId", tuple.get(player.team.teamId));
-            return map;
-        }).collect(Collectors.toList());
     }
+//        List<Tuple> ls = jpaQueryFactory
+//                .select(player.position, player.team.teamId)
+//                .from(player)
+//                .leftJoin(player.team, team)
+//                .where(player.position.eq("GK"), player.team.regionName.eq(team.regionName))
+//                .fetch();
+//
+//        return ls.stream().map(tuple -> {
+//            Map<String, Object> map = new HashMap<>();
+//            map.put("position", tuple.get(player.position));
+//            map.put("teamId", tuple.get(player.team.teamId));
+//            return map;
+//        }).collect(Collectors.toList());
+
 
     // 8  O
     @Override

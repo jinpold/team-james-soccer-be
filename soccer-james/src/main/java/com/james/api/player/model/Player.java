@@ -1,4 +1,5 @@
 package com.james.api.player.model;
+
 import com.james.api.common.BaseEntity;
 import com.james.api.team.model.Team;
 import jakarta.persistence.*;

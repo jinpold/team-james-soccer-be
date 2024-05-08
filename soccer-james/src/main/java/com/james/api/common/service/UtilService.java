@@ -1,4 +1,4 @@
-package com.james.api.common;
+package com.james.api.common.service;
 
 public interface UtilService {
     int createRandomInteger(int start, int gapBetweenStartAndEnd);
