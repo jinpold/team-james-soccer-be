@@ -1,4 +1,6 @@
-package com.james.api.common;
+package com.james.api.common.serviceImpl;
+
+import com.james.api.common.service.UtilService;
 
 public class UtilServiceImpl implements UtilService {
 

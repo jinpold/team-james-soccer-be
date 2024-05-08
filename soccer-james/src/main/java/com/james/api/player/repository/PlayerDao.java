@@ -1,14 +1,21 @@
 package com.james.api.player.repository;
 
 import com.james.api.player.model.PlayerDto;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
 
 
+<<<<<<< HEAD
+=======
+ //DAO는 스프링 레파지토리 Name
+>>>>>>> develop-isak
 public interface PlayerDao { // 인터페이스  서비스
 
+    // total row
+    Long countAllPlayers();
+
+    //All
     List<PlayerDto> getAllPlayersDSL();
 
     //2번  O 파라미터 X
@@ -23,7 +30,7 @@ public interface PlayerDao { // 인터페이스  서비스
 
     //4-1번 O
 
-    List<?> getOnByPositionAndTeamId2DSL(String regionName);
+    List<String> getOnByPositionAndTeamId2DSL();
 
     //5번 O
     List<?> getOnByPositionAndTeamIdAndHeightDSL(String regionName1);
@@ -36,10 +43,10 @@ public interface PlayerDao { // 인터페이스  서비스
 
 
     //7번 O
-    List<Map<String, Object>> getPositionAndRegionDSL();
+    List<PlayerDto> getPositionAndRegionDSL();
 
     //8번  수정 필요
-    List<?> getOnByHeightAndWeightDSL(String regionName);
+    List<Map<String, String>> getOnByHeightAndWeightDSL(String regionName);
 
     //9번
     List<?> getPlayerInfoByRegionDSL();
@@ -50,7 +57,6 @@ public interface PlayerDao { // 인터페이스  서비스
 
     //18번  - Limit 추가 필요
     List<?> getOnCountAllDSL();
-
 
     //20번
     List<?> getByOnPositionAndTeamId20DSL();

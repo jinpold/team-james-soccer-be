@@ -1,4 +1,4 @@
-package com.james.api.common;
+package com.james.api.common.model;
 
 import java.util.ArrayList;
 
