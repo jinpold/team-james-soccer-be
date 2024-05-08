@@ -1,41 +1,37 @@
 package com.james.api.schedule.repository;
 
 import com.james.api.schedule.model.QSchedule;
+import com.james.api.schedule.model.QScheduleDto;
 import com.james.api.schedule.model.ScheduleDto;
+import com.james.api.stadium.model.QStadium;
+import com.james.api.stadium.model.QStadiumDto;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 @RequiredArgsConstructor
 public class ScheduleDaoImpl implements ScheduleDao {
 
     private final JPAQueryFactory jpaQueryFactory;
+    private final QSchedule schedule=QSchedule.schedule;
+    private final QStadium stadium=QStadium.stadium;
+
     @Override
-    public List<ScheduleDto> getAllSchedules() {
-        return jpaQueryFactory.select(
-                        QSchedule.schedule.id,
-                        QSchedule.schedule.scheDate,
-                        QSchedule.schedule.gubun,
-                        QSchedule.schedule.hometeamId,
-                        QSchedule.schedule.awayteamId,
-                        QSchedule.schedule.homeScore,
-                        QSchedule.schedule.awayScore,
-                        QSchedule.schedule.regDate,
-                        QSchedule.schedule.modDate)
-                .from(QSchedule.schedule)
-                .fetch()
-                .stream()
-                .map(tuple -> ScheduleDto.builder()
-                        .id(tuple.get(QSchedule.schedule.id))
-                        .scheDate(tuple.get(QSchedule.schedule.scheDate))
-                        .gubun(tuple.get(QSchedule.schedule.gubun))
-                        .hometeamId(tuple.get(QSchedule.schedule.hometeamId))
-                        .awayteamId(tuple.get(QSchedule.schedule.awayteamId))
-                        .homeScore(tuple.get(QSchedule.schedule.homeScore))
-                        .regDate(tuple.get(QSchedule.schedule.regDate))
-                        .modDate(tuple.get(QSchedule.schedule.modDate))
-                        .build()).toList();
+    public List<ScheduleDto> getInfoInScheduleByDate(@Param("startDate") String startDate, @Param("endDate") String endDate) {
+                return jpaQueryFactory.select(new QScheduleDto(
+                        JPAExpressions.select(stadium.stadiumName.as("stadiumName")).from(stadium).where(stadium.id.eq(schedule.stadium.id)),
+                        schedule.scheDate.as("scheDate")
+                        )
+                ).distinct()
+                .from(schedule)
+                .where(schedule.scheDate.between(startDate,endDate))
+                .fetch();
     }
 }
 

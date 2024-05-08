@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Map;
 
-@SuppressWarnings("hiding")
+@SuppressWarnings("rawtypes")
 @Repository
 public interface StadiumRepository extends JpaRepository<Stadium, Long>,StadiumJpqlRepository {
 
