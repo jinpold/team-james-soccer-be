@@ -1,11 +1,9 @@
 package com.james.api.player.web;
-
 import com.james.api.player.repository.PlayerRepository;
 import com.james.api.player.service.PlayerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
 
 @Slf4j
@@ -39,10 +37,11 @@ public class PlayerRouter {
             case "22" -> playerRepository.getHeightAndTeamId();
 
             //QueryDSL
+            case "player-All" -> playerRepository.getAllPlayersDSL();
             case "player-No2" -> playerRepository.getDistinctByPositionDSL();
             case "player-No3" -> playerRepository.getDistinctByPositionNotNullDSL();
             case "player-No4" -> playerRepository.getOnByPositionAndTeamIdDSL(position, teamName1);
-            case "player-No4-1" -> playerRepository.getOnByPositionAndTeamId2DSL(regionName);
+            case "player-No4-1" -> playerRepository.getOnByPositionAndTeamId2DSL();
             case "player-No5" -> playerRepository.getOnByPositionAndTeamIdAndHeightDSL(regionName);
             case "player-No5-1" -> playerRepository.getOnByPositionAndTeamIdAndHeight2DSL(playerName, regionName, height1);
             case "player-No6" -> playerRepository.getOnByPositionAndHeightAndTeamIdDSL(teamName1, teamName2,position, height1, height2);
@@ -54,8 +53,7 @@ public class PlayerRouter {
             case "player-No20" -> playerRepository.getByOnPositionAndTeamId20DSL();
             case "player-No21" -> playerRepository.getOnByPositionAndTeamId21DSL();
             case "player-No22" -> playerRepository.getHeightAndTeamIdDSL();
-            
-            
+
             default -> throw new IllegalStateException("Unexpected value: " + q);
         };
     }
