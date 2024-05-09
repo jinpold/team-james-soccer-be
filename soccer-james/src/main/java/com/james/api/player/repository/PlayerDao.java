@@ -6,10 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 
-<<<<<<< HEAD
-=======
- //DAO는 스프링 레파지토리 Name
->>>>>>> develop-isak
+
+
 public interface PlayerDao { // 인터페이스  서비스
 
     // total row
