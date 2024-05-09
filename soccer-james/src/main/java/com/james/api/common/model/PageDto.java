@@ -15,7 +15,7 @@ public class PageDto {
     // o
     private Long pageSize; // 한 페이지당 보여지는 수 (변경가능)
     // x
-    public static Long BLOCK_SIZE = 10L; // 대문자 상수 & 소문자 변수 (되도록 변경 X)
+    public static final Long BLOCK_SIZE = 10L; // 대문자 상수 & 소문자 변수 (되도록 변경 X)
 
     // x
     private Long totalCount; //All row

@@ -1,4 +1,4 @@
-package com.james.api.common.serviceImpl;
+package com.james.api.common.service.impl;
 
 import com.james.api.common.service.UtilService;
 

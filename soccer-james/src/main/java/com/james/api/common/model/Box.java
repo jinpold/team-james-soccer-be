@@ -37,7 +37,7 @@ public class Box<T>{
     public int size(){
         return box.size();
     }
-    public void clear(){
+    public void clear() {
         box.clear();
     }
 

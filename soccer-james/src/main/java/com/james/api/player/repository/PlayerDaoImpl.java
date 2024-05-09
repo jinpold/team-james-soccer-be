@@ -5,17 +5,14 @@ import com.james.api.player.model.QPlayerDto;
 import com.james.api.schedule.model.QSchedule;
 import com.james.api.stadium.model.QStadium;
 import com.james.api.team.model.QTeam;
-import com.querydsl.core.Tuple;
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 import java.util.Map;
 
-@Repository
 @RequiredArgsConstructor
 @Repository
 public class PlayerDaoImpl implements PlayerDao {
@@ -83,14 +80,12 @@ public class PlayerDaoImpl implements PlayerDao {
 
     //4 X
     @Override
-    public List<Tuple> getOnByPositionAndTeamIdDSL(String position, String teamId1) {
-
-        return jpaQueryFactory
-                .select(player.team.teamId, player.position)
+    public List<String> getOnByPositionAndTeamIdDSL(String position, String teamId1) {
+        return jpaQueryFactory.select(
+                        player.playerName)
                 .from(player)
-                .leftJoin(player.team, team)
-                .where(player.position.eq(position),
-                        teamId1 != null ? player.team.teamId.eq(teamId1) : player.team.teamId.isNull())
+                .where(player.team.teamId.eq(teamId1)
+                        .and(player.position.eq(position)))
                 .fetch();
     }
 
@@ -217,6 +212,8 @@ public class PlayerDaoImpl implements PlayerDao {
                                 player.backNo,
                                 player.solar))
                 .from(player)
+                .orderBy(player.id.asc())
+                .limit(5)
                 .fetch();
     }
 

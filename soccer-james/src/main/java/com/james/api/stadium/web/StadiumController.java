@@ -1,7 +1,5 @@
 package com.james.api.stadium.web;
 
-import com.james.api.common.model.Box;
-import com.james.api.common.model.PageDto;
 import com.james.api.stadium.model.StadiumDto;
 import com.james.api.stadium.service.StadiumServiceImpl;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -49,6 +47,6 @@ public class StadiumController {
 //        //builder 패턴 필요
 //        Box box=new Box();
         //box가 들어가야 한다.
-        return ResponseEntity.ok();
+        return ResponseEntity.ok(null);
     }
 }
