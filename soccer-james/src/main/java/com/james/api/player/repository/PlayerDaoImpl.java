@@ -13,6 +13,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Map;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> develop-syr
 @RequiredArgsConstructor
 @Repository
 public class PlayerDaoImpl implements PlayerDao {

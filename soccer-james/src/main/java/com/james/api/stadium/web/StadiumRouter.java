@@ -19,7 +19,7 @@ public class StadiumRouter {
 
     private final StadiumDaoImpl stadiumDao;
 
-    public List<StadiumDto> execute(String q, String regionName, String date, String teamName, String position, String score, int pageNumber, int pageSize){
+    public List<StadiumDto> execute(String q, String regionName, String date, String teamName, String position, String score){
         return switch (q){
             case "11"-> stadiumDao.getStadiumNameWithTeam(regionName);
             case "14"-> stadiumDao.getStadiumAndTeamAndSchedule(date);
